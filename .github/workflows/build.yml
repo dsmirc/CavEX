@@ -165,4 +165,107 @@ jobs:
       with:
         name: PC tgz
         path: cavex.tar.gz
+ 
+  pc-win:
+    name: WPC build
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Checkout lodepng
+      uses: actions/checkout@v4
+      with:
+        repository: 'lvandeve/lodepng'
+        path: tempsource/lodepng
+
+    - name: Checkout mlib
+      uses: actions/checkout@v4
+      with:
+        repository: 'P-p-H-d/mlib'
+        path: tempsource/m-lib
+
+    - name: Checkout cNBT
+      uses: actions/checkout@v4
+      with:
+        repository: 'chmod222/cNBT'
+        path: tempsource/cNBT
+
+    - name: Checkout parson
+      uses: actions/checkout@v4
+      with:
+        repository: 'kgabis/parson'
+        path: tempsource/parson
+
+    - name: Checkout cglm
+      uses: actions/checkout@v4
+      with:
+        repository: 'recp/cglm'
+        path: tempsource/cglm
+
+    - name: Move dependencies
+      run: |
+        mkdir ./source/cglm/
+        mkdir ./source/lodepng/
+        mkdir ./source/cNBT/
+        mkdir ./source/parson/
+        mkdir ./source/m-lib/
+        mv ./tempsource/cglm/include/cglm/* ./source/cglm/
+        mv ./tempsource/lodepng/lodepng.h ./source/lodepng/lodepng.h
+        mv ./tempsource/lodepng/lodepng.cpp ./source/lodepng/lodepng.c
+        mv ./tempsource/cNBT/buffer.* ./source/cNBT/
+        mv ./tempsource/cNBT/list.h ./source/cNBT/
+        mv ./tempsource/cNBT/nbt_*.c ./source/cNBT/
+        mv ./tempsource/cNBT/nbt.h ./source/cNBT/
+        mv ./tempsource/parson/parson.* ./source/parson/
+        mv ./tempsource/m-lib/*.h ./source/m-lib/
+
+    - name: Install MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+         msystem: MINGW32
+         update: true
+         install: >-
+           git
+           make
+           mingw-w64-i686-toolchain
+           mingw-w64-i686-SDL2
+           mingw-w64-i686-zlib
+           mingw-w64-i686-gcc
+           mingw-w64-x86_64-gcc
+           mingw-w64-i686-glew
+           mingw-w64-x86_64-glew
+           mingw-w64-x86_64-glfw
+           mingw-w64-i686-glfw
+           mingw-w64-i686-SDL2
+           mingw-w64-i686-SDL
+           mingw-w64-x86_64-SDL2
+           mingw-w64-x86_64-SDL
+           python3
+    - name: Make
+      run: |
+        mkdir build_pc
+        cd build_pc
+        cmake ..
+        make -j 4
+      env: 
+        C_INCLUDE_PATH: "${{ github.workspace }}/source/"
+
+    - name: Create zip
+      run: |
+        mkdir -p ./apps/cavex/saves/
+        mv assets ./apps/cavex/
+        mv resources/*.shader ./apps/cavex/assets/
+        mv build_pc/cavex ./apps/cavex/cavex
+        mv config_pc.json ./apps/cavex/config.json
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: PC tgz
+        path: cavex.tar.gz
 
