@@ -251,13 +251,17 @@ jobs:
 
     - name: Make
       run: |
+    
+    - name: Make
+      run: |
         mkdir build_pc
         cd build_pc
         cmake -G "MSYS Makefiles" ..
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
-        PATH: "/mingw64/bin:$PATH"
+        PATH: "/mingw64/bin:/usr/bin:$PATH"
+
 
     - name: Create zip
       run: |
