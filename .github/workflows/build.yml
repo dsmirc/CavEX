@@ -256,11 +256,11 @@ jobs:
       run: |
         mkdir build_pc
         cd build_pc
-        cmake -G "MSYS Makefiles" ..
+        cmake ..
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
-        PATH: "/mingw64/bin:/usr/bin:$PATH"
+      shell: bash -l {0}
 
 
     - name: Create zip
