@@ -257,7 +257,7 @@ jobs:
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
-
+        PATH: "/mingw64/bin:$PATH"
 
     - name: Create zip
       run: |
