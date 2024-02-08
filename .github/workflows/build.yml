@@ -257,7 +257,7 @@ jobs:
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
-      shell: bash -l {0}
+      shell: msys2 {0}
 
 
     - name: Create zip
