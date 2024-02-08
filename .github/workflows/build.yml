@@ -253,10 +253,11 @@ jobs:
       run: |
         mkdir build_pc
         cd build_pc
-        cmake ..
+        cmake -G "MSYS Makefiles" ..
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
+
 
     - name: Create zip
       run: |
