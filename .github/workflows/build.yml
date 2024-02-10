@@ -209,20 +209,19 @@ jobs:
 
     - name: Move dependencies
       run: |
-        mkdir source\cglm
-        mkdir source\lodepng
-        mkdir source\cNBT
-        mkdir source\parson
-        mkdir source\m-lib
-        move tempsource\cglm\include\cglm\* source\cglm\
-        move tempsource\lodepng\lodepng.h source\lodepng\lodepng.h
-        move tempsource\lodepng\lodepng.cpp source\lodepng\lodepng.c
-        move tempsource\cNBT\buffer.* source\cNBT\
-        move tempsource\cNBT\list.h source\cNBT\
-        move tempsource\cNBT\nbt_*.c source\cNBT\
-        move tempsource\cNBT\nbt.h source\cNBT\
-        move tempsource\parson\parson.* source\parson\
-        move tempsource\m-lib\*.h source\m-lib\
+        mkdir .\source\cglm\
+        mkdir .\source\lodepng\
+        mkdir .\source\cNBT\
+        mkdir .\source\parson\
+        mkdir .\source\m-lib\
+        move .\tempsource\cglm\include\cglm\* .\source\cglm\
+        move .\tempsource\lodepng\lodepng.h .\source\lodepng\lodepng.h
+        move .\tempsource\lodepng\lodepng.cpp .\source\lodepng\lodepng.c
+        move .\tempsource\cNBT\buffer.* .\source\cNBT\
+        move .\tempsource\cNBT\list.h .\source\cNBT\
+        move .\tempsource\cNBT\nbt_*.c .\source\cNBT\
+        move .\tempsource\cNBT\nbt.h .\source\cNBT\
+        move .\tempsource\parson\parson.* .\source\parson\
  
     - name: Install MSYS2
       uses: msys2/setup-msys2@v2
