@@ -227,42 +227,30 @@ jobs:
     - name: Install MSYS2
       uses: msys2/setup-msys2@v2
       with:
-         msystem: MINGW32
+         msystem: UCRT64
          update: true
          install: >-
            git
+           mingw-w64-ucrt-x86_64-glfw
+           mingw-w64-ucrt-x86_64-glew
+           mingw-w64-ucrt-x86_64-toolchain
+           cmake
            make
-           mingw-w64-i686-toolchain
-           mingw-w64-i686-SDL2
-           mingw-w64-i686-zlib
-           mingw-w64-i686-gcc
-           mingw-w64-x86_64-gcc
-           mingw-w64-i686-glew
-           mingw-w64-x86_64-make
-           mingw-w64-x86_64-cmake
-           mingw-w64-x86_64-ninja
-           mingw-w64-x86_64-glew
-           mingw-w64-x86_64-glfw
-           mingw-w64-i686-glfw
-           mingw-w64-i686-SDL2
-           mingw-w64-i686-SDL
-           mingw-w64-x86_64-SDL2
-           mingw-w64-i686-zlib
-           mingw-w64-x86_64-zlib
-           mingw-w64-x86_64-SDL
+           zlib-devel
+           zlib
            python3
-         shell: msys2 {0}
+         shell: msys2 
 
     
     - name: Make
       run: |
         mkdir build_pc
         cd build_pc
-        cmake ..
+        cmake -G "MSYS Makefiles" .. -DCMAKE_BUILD_TYPE=Release
         make -j 4
       env: 
         C_INCLUDE_PATH: "${{ github.workspace }}/source/"
-      shell: msys2 {0}
+      shell: msys2
 
 
     - name: Create zip
