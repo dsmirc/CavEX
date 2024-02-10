@@ -151,6 +151,6 @@ set_target_properties(
 )
 
 set_property(TARGET cavex PROPERTY INTERPROCEDURAL_OPTIMIZATION True)
-target_include_directories(cavex PRIVATE "D:/a/CavEX/CavEX/source/m-lib/")
+target_include_directories(cavex PRIVATE "D:/a/CavEX/CavEX/source/")
 
 target_link_libraries(cavex ${CMAKE_THREAD_LIBS_INIT} ZLIB::ZLIB glfw GLEW::GLEW OpenGL::GL m)
